@@ -347,7 +347,7 @@ In this guide we will use the first stage to generate the native executable usin
 [source,dockerfile,subs=attributes+]
 ----
 ## Stage 1 : build with maven builder image with native capabilities
-FROM quay.io/quarkus/centos-quarkus-maven:{graalvm-version} AS build
+FROM quay.io/quarkus/centos-quarkus-maven:{graalvm-version}-javaXX AS build
 COPY src /usr/src/app/src
 COPY pom.xml /usr/src/app
 USER root
@@ -363,7 +363,10 @@ RUN chmod 775 /work
 EXPOSE 8080
 CMD ["./application", "-Dquarkus.http.host=0.0.0.0"]
 ----
-
+[WARNING]
+====
+You have to specify the correct java version to use. You can visualize available version of the image https://quay.io/repository/quarkus/centos-quarkus-maven?tag=latest&tab=tags[in the quay.io repository]
+====
 
 Save this file in `src/main/docker/Dockerfile.multistage` as it is not included in the getting started quickstart.
 
